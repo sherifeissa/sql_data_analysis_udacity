@@ -1,0 +1,10 @@
+SELECT accounts.primary_poc, web_events.occurred_at; web_events.channel, accounts.name
+FROM web_events
+JOIN accounts
+ON accounts.name = 'Walmart';
+
+
+SELECT 
+FROM 
+JOIN 
+ON 
