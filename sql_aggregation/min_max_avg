@@ -1,0 +1,27 @@
+SELECT MIN(orders.occurred_at) AS earliest_order_date
+  FROM orders;
+
+
+SELECT o.occurred_at
+  FROM orders o
+  ORDER BY o.occurred_at
+  LIMIT 1;
+
+
+SELECT MAX(web_events.occurred_at)
+  FROM web_events;
+
+
+SELECT w.occurred_at
+  FROM web_events w
+  ORDER BY w.occurred_at DESC
+  LIMIT 1;
+
+
+SELECT AVG(o.standard_amt_usd) AS Average_Standard_Amount_Spent,
+      AVG(o.gloss_amt_usd) AS Average_Gloss_Amount_Spent,
+      AVG(o.poster_amt_usd) AS Average_Poster_Amount_Spent,
+      AVG(o.standard_qty) AS Average_Standard_Quantity,
+      AVG(o.gloss_qty) AS Average_Gloss_Quantity,
+      AVG(o.poster_qty) AS Average_Poster_Quantity
+  FROM orders o;
