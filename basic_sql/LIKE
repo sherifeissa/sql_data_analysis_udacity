@@ -1,0 +1,13 @@
+SELECT *
+FROM accounts
+WHERE name LIKE 'C%';
+
+
+SELECT *
+FROM accounts
+WHERE name LIKE '%one%';
+
+
+SELECT *
+FROM accounts
+WHERE name LIKE '%S';

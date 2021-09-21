@@ -1,0 +1,8 @@
+SELECT id, account_id, (standard_amt_usd/standard_qty) AS unit_price_per_standard_paper
+FROM orders
+LIMIT 10;
+
+
+SELECT id, account_id, (poster_amt_usd / (standard_amt_usd + gloss_amt_usd + poster_amt_usd)) AS revenue_perc_poster
+FROM orders
+LIMIT 10;
