@@ -1,1 +1,23 @@
+SELECT *
+  FROM sf_crime_data
+  LIMIT 10;
 
+
+
+SELECT date,
+      (SUBSTR(date, 7, 4) || '-' || LEFT(date, 2) || '-' || SUBSTR(date, 4, 2)) new_date
+FROM sf_crime_data
+LIMIT 10;
+
+
+WITH temp_table AS (
+  SELECT date,
+        (SUBSTR(date, 7, 4) || '-' || LEFT(date, 2) || '-' || SUBSTR(date, 4, 2)) new_date
+  FROM sf_crime_data
+  LIMIT 10
+)
+SELECT date,
+      new_date,
+      new_date::DATE AS correct_formatted_date,
+  FROM temp_table
+  LIMIT 10;

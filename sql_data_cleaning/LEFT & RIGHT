@@ -1,0 +1,36 @@
+SELECT RIGHT(website, 3) AS web_address_type,
+      COUNT(*) AS types_count
+  FROM accounts
+  GROUP BY 1;
+
+
+SELECT LEFT(name, 1) AS first_letter,
+      COUNT(*) AS count
+  FROM accounts
+  GROUP BY 1;
+
+
+WITH temp_table AS (
+  SELECT name,
+        CASE WHEN LEFT(UPPER(name), 1) IN ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9') THEN 1
+            ELSE 0 END AS num,
+        CASE WHEN LEFT(UPPER(name), 1) IN ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9') THEN 0
+            ELSE 1 END AS letter
+    FROM accounts
+)
+SELECT SUM(num) AS num_count,
+      SUM(letter) AS letter_count
+  FROM temp_table
+
+
+WITH temp_table AS (
+  SELECT name,
+        CASE WHEN LEFT(UPPER(name), 1) IN ('A', 'E', 'I', 'O', 'U') THEN 1
+            ELSE 0 END AS vowel,
+        CASE WHEN LEFT(UPPER(name), 1) IN ('A', 'E', 'I', 'O', 'U') THEN 0
+            ELSE 1 END AS not_vowel
+    FROM accounts
+)
+SELECT SUM(vowel) AS vowel_count,
+      SUM(not_vowel) AS non_vowel_count
+  FROM temp_table;

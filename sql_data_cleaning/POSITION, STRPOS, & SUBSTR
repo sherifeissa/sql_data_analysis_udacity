@@ -1,0 +1,10 @@
+SELECT primary_poc,
+      LEFT(primary_poc, (STRPOS(primary_poc, ' ') - 1)) AS first_name,
+      SUBSTRING(primary_poc, (STRPOS(primary_poc, ' ') + 1)) AS last_name
+  From accounts
+
+
+SELECT name,
+      LEFT(name, (STRPOS(name, ' ') - 1)) AS firstname,
+      SUBSTRING(name, (STRPOS(name, ' ') + 1)) AS last_name
+  FROM sales_reps
