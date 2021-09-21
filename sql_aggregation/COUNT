@@ -1,0 +1,10 @@
+SELECT COUNT(*) AS Accounts_Count
+  FROM accounts;
+
+
+SELECT COUNT(accounts.id) AS Accounts_Count
+  FROM accounts;
+
+
+SELECT COUNT(accounts.primary_poc) AS Accounts_Count
+  FROM accounts;
