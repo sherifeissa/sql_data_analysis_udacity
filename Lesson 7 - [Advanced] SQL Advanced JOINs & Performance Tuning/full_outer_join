@@ -1,0 +1,4 @@
+SELECT *
+FROM accounts a
+FULL JOIN sales_reps s
+  ON s.id = a.sales_rep_id;
