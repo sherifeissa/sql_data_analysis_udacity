@@ -1,0 +1,87 @@
+WITH t3 AS (
+  SELECT s.name AS sales_rep_name,
+        r.name AS region_name,
+        SUM(o.total_amt_usd) AS total_amt
+    FROM sales_reps s
+    JOIN accounts a
+      ON s.id = a.sales_rep_id
+    JOIN orders o
+      ON o.account_id = a.id
+    JOIN region r
+      ON s.region_id = r.id
+    GROUP BY 1, 2
+    ORDER BY 3 DESC
+),
+  t2 AS (
+    SELECT region_name,
+          MAX(total_amt) AS total_amt
+      FROM t3
+      GROUP BY 1
+  )
+SELECT t3.sales_rep_name,
+      t3.region_name,
+      t3.total_amt
+  FROM t2
+  JOIN t3
+    ON t3.region_name = t2.region_name AND t3.total_Amt = t2.total_amt;
+
+
+
+
+
+WITH t1 AS (
+  SELECT s.name AS sales_rep_name,
+        r.name AS region_name,
+        SUM(o.total_amt_usd) AS total_amt
+    FROM sales_reps s
+    JOIN accounts a
+      ON s.id = a.sales_rep_id
+    JOIN orders o
+      ON o.account_id = a.id
+    JOIN region r
+      ON s.region_id = r.id
+    GROUP BY 1, 2
+    ORDER BY 3 DESC
+),
+  t2 AS (
+    SELECT r.name AS region_name,
+          COUNT(*) AS orders_count
+      FROM region r
+      JOIN sales_reps s
+        ON r.id = s.region_id
+      JOIN accounts a
+        ON a.sales_rep_id = s.id
+      JOIN orders o
+        ON a.id = o.account_id
+      GROUP BY 1
+  ),
+  t3 AS (
+    SELECT region_name,
+          MAX(total_amt) AS total_amt
+      FROM t1
+      GROUP BY 1
+      ORDER BY 2 DESC
+      LIMIT 1
+  )
+SELECT t3.region_name,
+      t2.orders_count
+  FROM t2
+  JOIN t3
+    ON t2.region_name = t3.region_name;
+
+
+
+
+
+
+WITH t1 AS (
+  SELECT o.account_id account_id,
+        AVG(o.total_amt_usd) average_amt_usd
+    FROM orders o
+    GROUP By 1
+    HAVING AVG(o.total_amt_usd) >
+          (SELECT AVG(o.total_amt_usd) avg_all
+           FROM orders o)
+)
+SELECT AVG(average_amt_usd)
+  FROM t1;
